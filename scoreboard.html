@@ -92,6 +92,7 @@
             if (!is_enter) {
                 socket.emit("client_to_server_join", { value: selectRoom });
                 init();
+		document.getElementById("form").style.display = 'none';
 		is_enter = true;
             }
             e.preventDefault();
