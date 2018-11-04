@@ -124,6 +124,7 @@ io.sockets.on('connection', function (socket) {
       */
       console.log(s);
       before_now.set(room, now.get(room));
+      if (s < 0) s = 0; 
       io.to(room).emit('game', { time: s });
     });
     
