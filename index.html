@@ -45,7 +45,7 @@
             <input type="button" value="B: +5" class="btn btn-primary" onclick="plus5_b();" style="width: 350px; height: 200px; font: 70pt Arial"><input type="button" value="B: -5" class="btn btn-primary" onclick="minus5_b();" style="width: 350px; height: 200px; font: 70pt Arial"><br>
             <br>
             <br>
-            <input type="button" value="Reset" class="btn btn-primary" onclick="reset();" style="width: 350px; height: 200px; font: 70pt Arial"><input type="button" value="back" class="btn btn-primary" onclick="back()" style="width: 350px; height: 200px; font: 70pt Arial">
+            <input type="button" value="Reset" class="btn btn-primary" onclick="reset();" style="width: 350px; height: 200px; font: 70pt Arial"><!--<input type="button" value="back" class="btn btn-primary" onclick="back()" style="width: 350px; height: 200px; font: 70pt Arial">-->
             <input type="button" value="Scoreboard" class="btn btn-primary" onclick="jump2board();" style="width: 700px; height: 200px; font: 70pt Arial">
 	    <br>
             <div id="time"></div>
@@ -79,17 +79,17 @@
             selectRoom = $("#rooms").val();
             var room = $("#rooms").val();
             
-	    if (!is_enter) {
-                socket.emit("client_to_server_join", { value: room });
-                changeLabel();
-                init();
-            }
-            e.preventDefault();
+          if (!is_enter) {
+            socket.emit("client_to_server_join", { value: room });
+            changeLabel();
+            init();
+          }
+          e.preventDefault();
         });
 
-	if (!is_enter) {
-	  setInterval('socket.emit("game", { value: "stop" })', 1000);
-	}
+        if (!is_enter) {
+          setInterval('socket.emit("game", { value: "stop" })', 100);
+        }
 
         function changeLabel() {
             document.getElementById("form").style.display = `none`;
@@ -97,7 +97,7 @@
         }
 
         function plus1_a() {
-	    if (is_enter) socket.emit("team_a", { value: 1 });
+            if (is_enter) socket.emit("team_a", { value: 1 });
         }
 
         function plus5_a() {
@@ -145,15 +145,15 @@
         }
         
         function game_start() {
-	    if (is_enter && window.confirm("Game start!")) socket.emit("game", { value: "start" });
+            if (is_enter && window.confirm("Game start!")) socket.emit("game", { value: "start" });
         }
 
         function game_pause() {
-	    if (is_enter) socket.emit("game", { value: "pause" });
+            if (is_enter) socket.emit("game", { value: "pause" });
         }
 
         function game_reset() {
-	    if (is_enter && window.confirm("time reset")) socket.emit("game", { value: "reset" });
+            if (is_enter && window.confirm("time reset")) socket.emit("game", { value: "reset" });
         }
 
         function changecolor(newColor) {
