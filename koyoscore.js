@@ -124,7 +124,7 @@ io.sockets.on('connection', function (socket) {
       var s = Math.floor(ms / 1000);
       */
       var s = Math.floor(120 - ms / 1000) > 0 ? Math.floor(120 - ms / 1000) : 0;  
-      console.log(s);
+      // console.log(s);
       before_now.set(room, now.get(room));
       if (s < 0) s = 0; 
       io.to(room).emit('game', { time: s });
