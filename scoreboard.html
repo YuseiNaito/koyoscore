@@ -70,8 +70,8 @@
 
         socket.on("score", function (data) { write_score(data) });
         function write_score(data) {
-            document.getElementById("score_a").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw;">' + data.score_a + '</span></h1>';
-            document.getElementById("score_b").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw;">' + data.score_b + '</span></h1>';
+            document.getElementById("score_a").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw; -webkit-text-stroke: 4px #000;">' + data.score_a + '</span></h1>';
+            document.getElementById("score_b").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw; -webkit-text-stroke: 4px #000;">' + data.score_b + '</span></h1>';
         }
 
         socket.on("game", function (data) { write_time(data); play_sound(data); });
