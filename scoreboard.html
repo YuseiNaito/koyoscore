@@ -1,129 +1,131 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8">
-    <title>koyoscore</title>
-    <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <audio id="" preload="auto"><source src="sound/stop_sound.mp3" type="audio/mp3"> </audio>
+  <meta charset="utf-8">
+  <title>koyoscore</title>
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <audio id="" preload="auto">
+    <source src="sound/stop_sound.mp3" type="audio/mp3">
+  </audio>
 </head>
 <body>
-    <p class="resizeimage">
-        <img src="image/KIKS.png" alt="logo">
-    </p>
-    <div class="container" style="text-align: center;">
-        <form class="form-inline" id="form">
-            <div class="form-group">
-                <label class="roomLabel" for="rooms"></label>
-                <input type="tel" class="form-control" id="rooms" style="background-color: black; color: white;" maxlength="5">
-            </div>
-            <button type="submit" class="btn btn-primary" id="sendButton">Join</button>
-            <input type="button" value="Counter" class="btn btn-primary" onclick="location.href = 'index.html';">
-        </form>
+  <p class="resizeimage">
+    <img src="image/KIKS.png" alt="logo">
+  </p>
+  <div class="container" style="text-align: center;">
+    <form class="form-inline" id="form">
+      <div class="form-group">
+        <label class="roomLabel" for="rooms"></label>
+        <input type="tel" class="form-control" id="rooms" style="background-color: black; color: white;" maxlength="5">
+      </div>
+      <button type="submit" class="btn btn-primary" id="sendButton">Join</button>
+      <input type="button" value="Counter" class="btn btn-primary" onclick="location.href = 'index.html';">
+    </form>
 
-        <input type="button" id="prepared" value="\(｡>﹏<｡)/" class="btn btn-primary" style="display: none; margin-left: auto; margin-right: auto; border-color:black; background-color:black; text-align: center;" onclick="document.getElementById('prepared').style.display = `none`; document.getElementById('setting').style.display = `inline-block`;">
-        <span>
-            <h1 style="display: inline;"><span id="team_a" style="position: absolute; left: 20%; transform: translate(-50%); font-size: 25vw;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></h1>
-            <span id="score_a" style="position: absolute; left: 20%; transform: translate(-50%);"></span>
-            <h1 style="display: inline;"><span id="team_b" style="position: absolute; left: 80%; transform: translate(-50%); font-size: 25vw;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></h1>
-            <span id="score_b" style="position: absolute; left: 80%; transform: translate(-50%);"></span>
-        </span>
+    <input type="button" id="prepared" value="\(｡>﹏<｡)/" class="btn btn-primary" style="display: none; margin-left: auto; margin-right: auto; border-color: black; background-color: black; text-align: center;" onclick="document.getElementById('prepared').style.display = `none`; document.getElementById('setting').style.display = `inline-block`;">
+    <span>
+      <h1 style="display: inline;"><span id="team_a" style="position: absolute; left: 20%; transform: translate(-50%); font-size: 25vw;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></h1>
+      <span id="score_a" style="position: absolute; left: 20%; transform: translate(-50%);"></span>
+      <h1 style="display: inline;"><span id="team_b" style="position: absolute; left: 80%; transform: translate(-50%); font-size: 25vw;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></h1>
+      <span id="score_b" style="position: absolute; left: 80%; transform: translate(-50%);"></span>
+    </span>
+    <h2>
+      <span id="setting" style="text-align: center; width: 100%; bottom: 0; z-index: 999;">
+        <input type="button" value="Complete setting!" class="btn btn-primary" onclick="document.getElementById('setting').style.display = `none`; document.getElementById('prepared').style.display = `inline-block`; document.getElementById('start').style.display = `inline-block`;">
         <br>
-        <br>
-        <span id="time-title" style="position: absolute; left: 50%; transform: translate(-50%);"></span>
-        <br>
-        <br>
-	<br>
-        <span id="time" style="position: absolute; left: 50%; transform: translate(-50%);"></span>
-        <br>
-        <br>
-        <br>
-      	<h2>
-            <span id="setting" style="text-align: center; width: 100%; bottom: 0; z-index: 999;">
-                <input type="button" value="Complete setting!" class="btn btn-primary" onclick="document.getElementById('setting').style.display = `none`; document.getElementById('prepared').style.display = `inline-block`; document.getElementById('start').style.display = `inline-block`;">
-                <br>
-                <input type="button" class="chk1 btn" onclick="changecolor('team_a', '#ff4646');" style="width: 8%; height: 25px; color: red; border-color: gray;">
-                <input type="button" class="chk2 btn" onclick="changecolor('team_a', '#4459ff');" style="width: 8%; height: 25px; color: blue; border-color: gray;">
-                <input type="button" class="chk3 btn" onclick="changecolor('team_a', '#30c74f');" style="width: 8%; height: 25px; color: green; border-color: gray;">
-                <input type="button" class="chk4 btn" onclick="changecolor('team_a', '#000000');" style="width: 8%; height: 25px; color: black; border-color: gray;">
-                <input type="button" class="chk5 btn" onclick="changecolor('team_b', '#F2ED23');" style="width: 8%; height: 25px; color: yellow; border-color: gray;">
-                |
-                <input type="button" class="chk1 btn" onclick="changecolor('team_b', '#ff4646');" style="width: 8%; height: 25px; color: red; border-color: gray;">
-                <input type="button" class="chk2 btn" onclick="changecolor('team_b', '#4459ff');" style="width: 8%; height: 25px; color: blue; border-color: gray;">
-                <input type="button" class="chk3 btn" onclick="changecolor('team_b', '#30c74f');" style="width: 8%; height: 25px; color: green; border-color: gray;">
-                <input type="button" class="chk4 btn" onclick="changecolor('team_b', '#000000');" style="width: 8%; height: 25px; color: black; border-color: gray;">
-                <input type="button" class="chk5 btn" onclick="changecolor('team_b', '#F2ED23');" style="width: 8%; height: 25px; color: yellow; border-color: gray;">
-            </span>
-	      </h2>
-    </div>
+        <input type="button" class="chk1 btn" onclick="changecolor('team_a', '#ff4646');" style="width: 8%; height: 25px; color: red; border-color: gray;">
+        <input type="button" class="chk2 btn" onclick="changecolor('team_a', '#4459ff');" style="width: 8%; height: 25px; color: blue; border-color: gray;">
+        <input type="button" class="chk3 btn" onclick="changecolor('team_a', '#30c74f');" style="width: 8%; height: 25px; color: green; border-color: gray;">
+        <input type="button" class="chk4 btn" onclick="changecolor('team_a', '#000000');" style="width: 8%; height: 25px; color: black; border-color: gray;">
+        <input type="button" class="chk5 btn" onclick="changecolor('team_b', '#F2ED23');" style="width: 8%; height: 25px; color: yellow; border-color: gray;">
+        |
+        <input type="button" class="chk1 btn" onclick="changecolor('team_b', '#ff4646');" style="width: 8%; height: 25px; color: red; border-color: gray;">
+        <input type="button" class="chk2 btn" onclick="changecolor('team_b', '#4459ff');" style="width: 8%; height: 25px; color: blue; border-color: gray;">
+        <input type="button" class="chk3 btn" onclick="changecolor('team_b', '#30c74f');" style="width: 8%; height: 25px; color: green; border-color: gray;">
+        <input type="button" class="chk4 btn" onclick="changecolor('team_b', '#000000');" style="width: 8%; height: 25px; color: black; border-color: gray;">
+        <input type="button" class="chk5 btn" onclick="changecolor('team_b', '#F2ED23');" style="width: 8%; height: 25px; color: yellow; border-color: gray;">
+      </span>
+    </h2>
+    <br>
+    <br>
+    <span id="time-title" style="position: absolute; left: 50%; transform: translate(-50%);"></span>
+    <br>
+    <br>
+    <br>
+    <span id="time" style="position: absolute; left: 50%; transform: translate(-50%);"></span>
+    <br>
+    <br>
+    <br>
+  </div>
 
-    <script type="text/javascript">
-        var socket = io.connect();
-        var is_enter = false;
-        var name = '';
+  <script type="text/javascript">
+    var socket = io.connect();
+    var is_enter = false;
+    var name = '';
 
-        socket.on("score", function (data) { write_score(data) });
-        function write_score(data) {
-            document.getElementById("score_a").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw; -webkit-text-stroke: 4px #000;">' + data.score_a + '</span></h1>';
-            document.getElementById("score_b").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw; -webkit-text-stroke: 4px #000;">' + data.score_b + '</span></h1>';
-        }
+    socket.on("score", function (data) { write_score(data) });
+    function write_score(data) {
+      document.getElementById("score_a").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw; -webkit-text-stroke: 4px #000;">' + data.score_a + '</span></h1>';
+      document.getElementById("score_b").innerHTML = '<h1 style="display:inline;"><span style="font-size:25vw; -webkit-text-stroke: 4px #000;">' + data.score_b + '</span></h1>';
+    }
 
-        socket.on("game", function (data) { write_time(data); play_sound(data); });
-        function write_time(data) {
-		document.getElementById("time-title").innerHTML = '<h1 style="display:inline"><span style="font-size:3vw;">TIME[sec]</span></h1>';
-		document.getElementById("time").innerHTML = '<h1 style="display:inline"><span style="font-size:7vw;">' + data.time + '</span></h1>';
-        }
-        
-        function play_sound(data) {
-          if (data.time == 0) document.getElementById("stop_sound").play();
-        }
+    socket.on("game", function (data) { write_time(data); play_sound(data); });
+    function write_time(data) {
+      document.getElementById("time-title").innerHTML = '<h1 style="display:inline"><span style="font-size:3vw;">TIME[sec]</span></h1>';
+      document.getElementById("time").innerHTML = '<h1 style="display:inline"><span style="font-size:7vw;">' + data.time + '</span></h1>';
+    }
 
-        $("form").submit(function (e) {
-            var selectRoom = $("#rooms").val();
-            if (!is_enter) {
-                socket.emit("client_to_server_join", { value: selectRoom });
-                init();
-		document.getElementById("form").style.display = 'none';
-		is_enter = true;
-            }
-            e.preventDefault();
-        });
+    function play_sound(data) {
+      if (data.time == 0) document.getElementById("stop_sound").play();
+    }
 
-        function init() {
-            socket.emit("team_all", { value: "init" });
-        }
-	
-        if (!is_enter) {
-	  setInterval('socket.emit("game", { value: "stop" })', 100);
-	}
+    $("form").submit(function (e) {
+      var selectRoom = $("#rooms").val();
+      if (!is_enter) {
+        socket.emit("client_to_server_join", { value: selectRoom });
+        init();
+        document.getElementById("form").style.display = 'none';
+        is_enter = true;
+      }
+      e.preventDefault();
+    });
 
-        function game_start() {
-	    if (is_enter && window.confirm("Game start!")) socket.emit("game", { value: "start" });
-        }
-        
-        function game_pause() {
-	    if (is_enter) socket.emit("game", { value: "pause" });
-        }
-        
-        function game_reset() {
-	    if (is_enter && window.confirm("time reset!")) socket.emit("game", { value: "reset" });
-        }
+    function init() {
+      socket.emit("team_all", { value: "init" });
+    }
 
-        function changecolor(team, newColor) {
-            // document.body.style.backgroundColor = newColor;
-            switch (team) {
-                case 'team_a':
-                    document.getElementById("team_a").style.backgroundColor = newColor;
-                    break;
-                case 'team_b':
-                    document.getElementById("team_b").style.backgroundColor = newColor;
-                    break;
-                default: ;
-            }
-        }
-    </script>
+    if (!is_enter) {
+      setInterval('socket.emit("game", { value: "stop" })', 100);
+    }
+
+    function game_start() {
+      if (is_enter && window.confirm("Game start!")) socket.emit("game", { value: "start" });
+    }
+
+    function game_pause() {
+      if (is_enter) socket.emit("game", { value: "pause" });
+    }
+
+    function game_reset() {
+      if (is_enter && window.confirm("time reset!")) socket.emit("game", { value: "reset" });
+    }
+
+    function changecolor(team, newColor) {
+      // document.body.style.backgroundColor = newColor;
+      switch (team) {
+        case 'team_a':
+          document.getElementById("team_a").style.backgroundColor = newColor;
+          break;
+        case 'team_b':
+          document.getElementById("team_b").style.backgroundColor = newColor;
+          break;
+        default: ;
+      }
+    }
+  </script>
 </body>
 </html>
